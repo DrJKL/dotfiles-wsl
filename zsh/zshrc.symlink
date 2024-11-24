@@ -90,7 +90,7 @@ DEFAULT_USER="whoami"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=(sudo git history tmux tmuxinator zsh-autosuggestions zsh-completions zsh-z)
+plugins=(sudo git history tmux tmuxinator zsh-autosuggestions zsh-completions zsh-z rust asdf virtualenv nvm)
 
 # User configuration
 
@@ -148,6 +148,7 @@ ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red') # To have commands s
 
 #---- Export ----
 export PATH=$PATH:~/bin
+export PATH=$PATH:/usr/local/go/bin
 #---- End Export ----
 
 #---- Source ----
@@ -156,3 +157,21 @@ source <(kubectl completion zsh)
 source $(dirname $(gem which colorls))/tab_complete.sh
 #---- End Source ----
 #---- END CUSTOM ----
+
+. "$HOME/.cargo/env"
+
+. "$HOME/.local/bin/env"
+
+# Should be handled by the nvm plugin.
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# pnpm
+export PNPM_HOME="/home/drjkl/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+. "./completion-for-pnpm.zsh"
+# pnpm end
